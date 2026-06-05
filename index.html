@@ -589,12 +589,25 @@
     setLoading(true);
 
     try {
+      // 파일을 base64로 변환 후 전송 (Apps Script 호환)
+      const toBase64 = file => new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload  = () => resolve(reader.result.split(',')[1]);
+        reader.onerror = reject;
+      });
+
       const formData = new FormData();
       formData.append('managerName',    managerName);
       formData.append('managerContact', managerContact);
       formData.append('channels',       channels.join(', '));
       formData.append('customMessage',  customMessage);
-      formData.append('file',           selectedFile, selectedFile.name);
+
+      if (selectedFile) {
+        const base64 = await toBase64(selectedFile);
+        formData.append('file',     base64);
+        formData.append('fileName', selectedFile.name);
+      }
 
       const res  = await fetch(APPS_SCRIPT_URL, { method: 'POST', body: formData });
       const data = await res.json();

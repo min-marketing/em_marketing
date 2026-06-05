@@ -127,7 +127,23 @@
     .request-card:hover { border-color: #C5D4FF; }
 
     /* 카드 요약 뷰 */
-    .card-summary { padding: 18px 20px; position: relative; }
+    .card-summary { padding: 18px 20px; }
+
+    .card-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .card-top-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
 
     .card-date { font-size: 11px; color: #AAB0C4; margin-bottom: 10px; }
 
@@ -187,9 +203,6 @@
     .card-actions {
       display: flex;
       gap: 8px;
-      position: absolute;
-      top: 16px;
-      right: 16px;
     }
 
     .btn-edit {
@@ -607,11 +620,19 @@
       card.innerHTML = `
         <!-- 요약 뷰 -->
         <div class="card-summary">
-          <div class="card-date" style="display:flex; align-items:center; justify-content:space-between;">
-            <span>📅 ${row.date}</span>
-            ${statusBadge}
+          <div class="card-top-row">
+            <div class="card-top-left">
+              <span class="card-date">📅 ${row.date}</span>
+              ${statusBadge}
+            </div>
+            <div class="card-actions">
+              ${isDone ? '' : `
+                <button class="btn-edit"   onclick="openEdit('${escAttr(row.id)}')">수정</button>
+                <button class="btn-delete" onclick="confirmDelete('${escAttr(row.id)}')">삭제</button>
+              `}
+            </div>
           </div>
-          <div class="card-row" style="margin-top:10px;">
+          <div class="card-row">
             <span class="card-label">발송 채널</span>
             <span class="card-value" id="view-channel-${row.id}">${channelBadges}</span>
           </div>
@@ -622,12 +643,6 @@
           <div class="card-row">
             <span class="card-label">고객 데이터</span>
             <span class="card-value" id="view-file-${row.id}">${escHtml(String(row.file))}</span>
-          </div>
-          <div class="card-actions">
-            ${isDone ? '' : `
-              <button class="btn-edit"   onclick="openEdit('${escAttr(row.id)}')">수정</button>
-              <button class="btn-delete" onclick="confirmDelete('${escAttr(row.id)}')">삭제</button>
-            `}
           </div>
         </div>
 
@@ -720,6 +735,13 @@
     btn.innerHTML = '<span class="spinner-sm"></span> 저장 중';
 
     try {
+      const toBase64 = file => new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload  = () => resolve(reader.result.split(',')[1]);
+        reader.onerror = reject;
+      });
+
       const fd = new FormData();
       fd.append('action',        'update');
       fd.append('id',            id);
@@ -729,7 +751,9 @@
       fd.append('customMessage', message);
 
       if (fileInput.files[0]) {
-        fd.append('file', fileInput.files[0], fileInput.files[0].name);
+        const base64 = await toBase64(fileInput.files[0]);
+        fd.append('file',     base64);
+        fd.append('fileName', fileInput.files[0].name);
       }
 
       const res  = await fetch(APPS_SCRIPT_URL, { method: 'POST', body: fd });
