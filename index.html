@@ -78,7 +78,6 @@
 
     /* 필드 */
     .field { margin-bottom: 20px; }
-
     .field:last-of-type { margin-bottom: 0; }
 
     label.field-label {
@@ -119,7 +118,6 @@
       gap: 14px;
       margin-bottom: 20px;
     }
-
     .field-row .field { margin-bottom: 0; }
 
     /* 채널 선택 */
@@ -161,16 +159,12 @@
     }
 
     .channel-box .icon { font-size: 25px; }
-
     .channel-box .name {
       font-size: 16px;
       font-weight: 600;
       color: #444;
     }
-
-    .channel-item input:checked ~ .channel-box .name {
-      color: #2B5BF0;
-    }
+    .channel-item input:checked ~ .channel-box .name { color: #2B5BF0; }
 
     .channel-box .check {
       width: 18px;
@@ -182,12 +176,10 @@
       justify-content: center;
       transition: all 0.15s;
     }
-
     .channel-item input:checked ~ .channel-box .check {
       background: #2B5BF0;
       border-color: #2B5BF0;
     }
-
     .channel-box .check::after {
       content: '';
       width: 6px;
@@ -196,8 +188,131 @@
       background: #fff;
       display: none;
     }
-
     .channel-item input:checked ~ .channel-box .check::after { display: block; }
+
+    /* 메일 템플릿 라디오 */
+    .template-radio-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .template-radio-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      border: 1.5px solid #DDE2F0;
+      border-radius: 10px;
+      background: #FAFBFF;
+      cursor: pointer;
+      transition: all 0.15s;
+      overflow: hidden;
+    }
+
+    .template-radio-item:hover {
+      border-color: #2B5BF0;
+      background: #EEF3FF;
+    }
+
+    .template-radio-item input[type="radio"] {
+      display: none;
+    }
+
+    .template-radio-item .tmpl-thumb {
+      width: 100%;
+      aspect-ratio: 9 / 16;
+      object-fit: cover;
+      object-position: top;
+      display: block;
+      background: #f0f0f0;
+    }
+
+    .template-radio-item .tmpl-label {
+      width: 100%;
+      padding: 8px 10px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #444;
+      text-align: center;
+      border-top: 1px solid #EEF1F8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .template-radio-item .tmpl-check {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      border: 1.5px solid #CBD0E0;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .template-radio-item.selected {
+      border-color: #2B5BF0;
+      background: #EEF3FF;
+    }
+
+    .template-radio-item.selected .tmpl-label {
+      color: #2B5BF0;
+      border-top-color: #C5D4FF;
+    }
+
+    .template-radio-item.selected .tmpl-check {
+      background: #2B5BF0;
+      border-color: #2B5BF0;
+    }
+
+    .template-radio-item.selected .tmpl-check::after {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #fff;
+      display: block;
+    }
+
+    /* 확대 미리보기 */
+    .tmpl-preview-box {
+      display: none;
+      margin-top: 12px;
+      border: 1.5px solid #2B5BF0;
+      border-radius: 10px;
+      overflow: hidden;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .tmpl-preview-box img {
+      width: 100%;
+      display: block;
+    }
+
+    /* 문자 미리보기 */
+    .sms-preview {
+      background: #F5F6FA;
+      border: 1.5px solid #DDE2F0;
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 14px;
+      font-size: 14px;
+      color: #555;
+      line-height: 1.7;
+      white-space: pre-wrap;
+      font-family: inherit;
+    }
+    .sms-preview-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: #AAB0C4;
+      margin-bottom: 8px;
+      letter-spacing: 0.5px;
+    }
 
     /* 업로드 */
     .upload-area {
@@ -237,18 +352,9 @@
       font-size: 23px;
     }
 
-    .upload-text {
-      font-size: 16px;
-      color: #555;
-    }
-
+    .upload-text { font-size: 16px; color: #555; }
     .upload-text strong { color: #2B5BF0; }
-
-    .upload-hint {
-      font-size: 14px;
-      color: #AAB0C4;
-      margin-top: 4px;
-    }
+    .upload-hint { font-size: 14px; color: #AAB0C4; margin-top: 4px; }
 
     /* 파일 선택됨 */
     .file-selected {
@@ -263,7 +369,6 @@
       color: #2B5BF0;
       border: 1px solid #C5D4FF;
     }
-
     .file-selected .file-name {
       flex: 1;
       font-weight: 600;
@@ -271,7 +376,6 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
-
     .file-selected .remove-file {
       cursor: pointer;
       color: #AAB0C4;
@@ -279,7 +383,6 @@
       line-height: 1;
       flex-shrink: 0;
     }
-
     .file-selected .remove-file:hover { color: #e74c3c; }
 
     .template-btn {
@@ -295,7 +398,6 @@
       padding: 0;
       font-weight: 500;
     }
-
     .template-btn:hover { text-decoration: underline; }
 
     /* 제출 버튼 */
@@ -316,7 +418,6 @@
       justify-content: center;
       gap: 8px;
     }
-
     .submit-btn:hover { background: #1A45D4; }
     .submit-btn:active { transform: scale(0.99); }
     .submit-btn:disabled { background: #9FB8FF; cursor: not-allowed; transform: none; }
@@ -330,7 +431,6 @@
       border-radius: 50%;
       animation: spin 0.7s linear infinite;
     }
-
     @keyframes spin { to { transform: rotate(360deg); } }
 
     /* 결과 메시지 */
@@ -343,18 +443,8 @@
       text-align: center;
       font-weight: 500;
     }
-
-    .result.success {
-      background: #E8F8F0;
-      color: #1A8A50;
-      border: 1px solid #A8E0C4;
-    }
-
-    .result.error {
-      background: #FEF0F0;
-      color: #D63B3B;
-      border: 1px solid #F5B7B1;
-    }
+    .result.success { background: #E8F8F0; color: #1A8A50; border: 1px solid #A8E0C4; }
+    .result.error   { background: #FEF0F0; color: #D63B3B; border: 1px solid #F5B7B1; }
 
     /* textarea */
     textarea {
@@ -372,7 +462,6 @@
       font-family: inherit;
       line-height: 1.6;
     }
-
     textarea:focus {
       border-color: #2B5BF0;
       box-shadow: 0 0 0 3px rgba(43,91,240,0.10);
@@ -386,8 +475,8 @@
       line-height: 1.5;
     }
 
-    /* 채널 오류 */
-    .channel-error {
+    /* 에러 메시지 */
+    .channel-error, .inline-error {
       display: none;
       font-size: 15px;
       color: #D63B3B;
@@ -397,6 +486,9 @@
     /* 유효성 오류 표시 */
     input.invalid { border-color: #E74C3C !important; }
     textarea.invalid { border-color: #E74C3C !important; }
+
+    /* 동적 섹션 */
+    .dynamic-section { display: none; }
 
     @media (max-width: 480px) {
       .page-header, .card { border-radius: 12px; }
@@ -440,7 +532,7 @@
         <label class="field-label" style="margin-bottom:12px;">채널 선택 <span class="req">*</span> <span style="font-weight:400;color:#AAB0C4;">(중복 선택 가능)</span></label>
         <div class="channel-group">
           <label class="channel-item">
-            <input type="checkbox" name="channel" value="메일" />
+            <input type="checkbox" name="channel" value="메일" id="chMail" />
             <div class="channel-box">
               <div class="icon">✉️</div>
               <div class="name">메일</div>
@@ -448,7 +540,7 @@
             </div>
           </label>
           <label class="channel-item">
-            <input type="checkbox" name="channel" value="문자" />
+            <input type="checkbox" name="channel" value="문자" id="chSms" />
             <div class="channel-box">
               <div class="icon">💬</div>
               <div class="name">문자</div>
@@ -459,15 +551,93 @@
         <div class="channel-error" id="channelError">메일 또는 문자를 1개 이상 선택해 주세요.</div>
       </div>
 
-      <hr class="divider" />
+      <!-- ── 메일 선택 시 표시 ── -->
+      <div class="dynamic-section" id="mailSection">
+        <hr class="divider" />
+        <div class="section-title">메일 템플릿</div>
 
-      <!-- 원하는 문구 -->
-      <div class="section-title">원하는 문구</div>
+        <div class="field">
+          <label class="field-label">템플릿 선택 <span class="req">*</span></label>
+          <p class="field-desc">발송할 메일 템플릿을 1개 선택해 주세요.</p>
+          <div class="template-radio-group" id="templateRadioGroup">
+            <label class="template-radio-item" data-img="images/mail_1.png">
+              <input type="radio" name="mailTemplate" value="경리나라1" />
+              <img class="tmpl-thumb" src="images/mail_1.png" alt="경리나라 1" />
+              <div class="tmpl-label"><span class="tmpl-check"></span>경리나라 1</div>
+            </label>
+            <label class="template-radio-item" data-img="images/mail_2.png">
+              <input type="radio" name="mailTemplate" value="경리나라2" />
+              <img class="tmpl-thumb" src="images/mail_2.png" alt="경리나라 2" />
+              <div class="tmpl-label"><span class="tmpl-check"></span>경리나라 2</div>
+            </label>
+            <label class="template-radio-item" data-img="images/mail_3.png">
+              <input type="radio" name="mailTemplate" value="경리나라3" />
+              <img class="tmpl-thumb" src="images/mail_3.png" alt="경리나라 3" />
+              <div class="tmpl-label"><span class="tmpl-check"></span>경리나라 3</div>
+            </label>
+            <label class="template-radio-item" data-img="images/mail_enterprise_1.png">
+              <input type="radio" name="mailTemplate" value="SERP Enterprise 1" />
+              <img class="tmpl-thumb" src="images/mail_enterprise_1.png" alt="SERP Enterprise 1" />
+              <div class="tmpl-label"><span class="tmpl-check"></span>SERP Enterprise 1</div>
+            </label>
+            <label class="template-radio-item" data-img="images/mail_enterprise_2.png">
+              <input type="radio" name="mailTemplate" value="SERP Enterprise 2" />
+              <img class="tmpl-thumb" src="images/mail_enterprise_2.png" alt="SERP Enterprise 2" />
+              <div class="tmpl-label"><span class="tmpl-check"></span>SERP Enterprise 2</div>
+            </label>
+          </div>
 
-      <div class="field" style="margin-bottom:0;">
-        <label class="field-label">추가 문구 <span class="req">*</span></label>
-        <p class="field-desc">메일 또는 문자를 지정하여 추가하고 싶으신 문구를 적어주세요.</p>
-        <textarea id="customMessage" placeholder="예) 메일: 안녕하세요, OO팀 홍길동입니다. 이번 이벤트를 안내드립니다.&#10;문자: [OO] 특별 혜택 안내 드립니다."></textarea>
+          <!-- 선택된 템플릿 확대 미리보기 -->
+          <div class="tmpl-preview-box" id="tmplPreviewBox">
+            <img id="tmplPreviewImg" src="" alt="템플릿 미리보기" />
+          </div>
+
+          <div class="inline-error" id="templateError">템플릿을 선택해 주세요.</div>
+        </div>
+
+        <div class="field" style="margin-bottom:0;">
+          <label class="field-label">추가 문구 <span style="font-weight:400; color:#AAB0C4; font-size:14px;">(선택)</span></label>
+          <p class="field-desc">메일을 지정하여 원하시는 위치, 원하시는 문구를 적어주세요.<br>
+            <span style="color:#AAB0C4;">예) 메일: 가장 상단 : 안녕하세요. 경리나라 컨설턴트 OOO입니다. 문의주시면 친절하게 안내해 드리겠습니다.</span>
+          </p>
+          <textarea id="mailMessage" placeholder="예) 메일: 가장 상단 : 안녕하세요. 경리나라 컨설턴트 OOO입니다."></textarea>
+        </div>
+      </div>
+
+      <!-- ── 문자 선택 시 표시 ── -->
+      <div class="dynamic-section" id="smsSection">
+        <hr class="divider" />
+        <div class="section-title">문자 템플릿</div>
+
+        <div class="field" style="margin-bottom:0;">
+          <label class="field-label">문자 내용 수정 <span class="req">*</span></label>
+          <p class="field-desc">담당자명, 연락처 등 필요한 부분을 직접 수정해 주세요. 수정한 내용이 스프레드시트에 저장됩니다.</p>
+          <textarea id="smsMessage" style="min-height:320px; font-size:15px; line-height:1.75;">경리나라 30일 무료 혜택 안내
+
+[Web발신]
+(광고)
+안녕하세요. 경리나라 컨설턴트 OOO입니다.
+
+복잡한 장부 정리와 증빙 관리로 고민하고 계신가요?
+누구나 경리 업무가 간편해지는 경리나라!
+
+✔ 원클릭 증빙수집으로 경리업무 자동화
+✔ 거래처 매출입, 미수금/미지급금 관리도 한눈에
+✔ 모바일 경리나라로 실시간 자금일보
+
+우리 사업장에 맞게 사용하고 싶다면?
+
+■ 1:1 맞춤 방문 컨설팅
+  - 전문 컨설턴트가 방문하여 원하시는 시간에
+    친절하게 설명드립니다.
+
+■ 방문 컨설팅 문의
+  신청 및 문의는 010-1234-5678로
+  연락 부탁드립니다.
+
+전문 컨설턴트 OOO ☎ 010-1234-5678</textarea>
+          <div class="inline-error" id="smsError">문자 내용을 입력해 주세요.</div>
+        </div>
       </div>
 
       <hr class="divider" />
@@ -522,16 +692,42 @@
   const fileNameEl    = document.getElementById('fileName');
   const removeFileBtn = document.getElementById('removeFile');
   const uploadArea    = document.getElementById('uploadArea');
+  const mailSection   = document.getElementById('mailSection');
+  const smsSection    = document.getElementById('smsSection');
 
   let selectedFile = null;
 
-  // 채널 선택 시 오류 메시지 숨김
+  // ── 채널 체크박스 이벤트 ──
+  function updateDynamicSections() {
+    const mailChecked = document.getElementById('chMail').checked;
+    const smsChecked  = document.getElementById('chSms').checked;
+    mailSection.style.display = mailChecked ? 'block' : 'none';
+    smsSection.style.display  = smsChecked  ? 'block' : 'none';
+    document.getElementById('channelError').style.display = 'none';
+  }
+
   document.querySelectorAll('input[name="channel"]').forEach(cb => {
-    cb.addEventListener('change', () => {
-      document.getElementById('channelError').style.display = 'none';
+    cb.addEventListener('change', updateDynamicSections);
+  });
+
+  // 라디오 버튼 선택 시 스타일 + 미리보기
+  document.querySelectorAll('input[name="mailTemplate"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+      document.querySelectorAll('.template-radio-item').forEach(el => el.classList.remove('selected'));
+      const item = radio.closest('.template-radio-item');
+      item.classList.add('selected');
+      document.getElementById('templateError').style.display = 'none';
+
+      // 확대 미리보기
+      const imgSrc = item.getAttribute('data-img');
+      const previewBox = document.getElementById('tmplPreviewBox');
+      const previewImg = document.getElementById('tmplPreviewImg');
+      previewImg.src = imgSrc;
+      previewBox.style.display = 'block';
     });
   });
 
+  // ── 파일 업로드 ──
   fileInput.addEventListener('change', () => {
     if (fileInput.files[0]) setFile(fileInput.files[0]);
   });
@@ -567,25 +763,56 @@
     a.click();
   });
 
+  // ── 폼 제출 ──
   document.getElementById('requestForm').addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const managerName    = document.getElementById('managerName').value.trim();
     const managerContact = document.getElementById('managerContact').value.trim();
-    const customMessage  = document.getElementById('customMessage').value.trim();
     const channels       = [...document.querySelectorAll('input[name="channel"]:checked')].map(c => c.value);
-    const channelError   = document.getElementById('channelError');
+    const mailChecked    = document.getElementById('chMail').checked;
+    const smsChecked     = document.getElementById('chSms').checked;
 
-    // 유효성 검사
+    // 기본 유효성
     if (!managerName)    return showResult('error', 'EM 담당자명을 입력해 주세요.');
     if (!managerContact) return showResult('error', 'EM 연락처를 입력해 주세요.');
     if (channels.length === 0) {
-      channelError.style.display = 'block';
+      document.getElementById('channelError').style.display = 'block';
       return showResult('error', '발송 채널을 1개 이상 선택해 주세요.');
     }
-    channelError.style.display = 'none';
-    if (!customMessage)  return showResult('error', '원하는 문구를 입력해 주세요.');
-    if (!selectedFile)   return showResult('error', '고객 리스트 파일을 업로드해 주세요.');
+
+    // 메일 유효성
+    if (mailChecked) {
+      const selectedTemplate = document.querySelector('input[name="mailTemplate"]:checked');
+      if (!selectedTemplate) {
+        document.getElementById('templateError').style.display = 'block';
+        return showResult('error', '메일 템플릿을 선택해 주세요.');
+      }
+    }
+
+    // 문자 유효성
+    if (smsChecked) {
+      const smsText = document.getElementById('smsMessage').value.trim();
+      if (!smsText) {
+        document.getElementById('smsError').style.display = 'block';
+        return showResult('error', '문자 내용을 입력해 주세요.');
+      }
+    }
+
+    if (!selectedFile) return showResult('error', '고객 리스트 파일을 업로드해 주세요.');
+
+    // customMessage 조합
+    const parts = [];
+    if (mailChecked) {
+      const tpl = document.querySelector('input[name="mailTemplate"]:checked').value;
+      const extra = document.getElementById('mailMessage').value.trim();
+      parts.push(`【메일 템플릿】${tpl}` + (extra ? `\n【추가 문구】${extra}` : ''));
+    }
+    if (smsChecked) {
+      const smsText = document.getElementById('smsMessage').value.trim();
+      parts.push(`【문자 내용】\n${smsText}`);
+    }
+    const combinedMessage = parts.join('\n\n');
 
     setLoading(true);
 
@@ -597,12 +824,11 @@
         reader.onerror = reject;
       });
 
-      // SheetJS로 클라이언트에서 건수 카운트
       const countRows = file => new Promise(resolve => {
         const reader = new FileReader();
-        reader.onload = e => {
+        reader.onload = ev => {
           try {
-            const wb   = XLSX.read(e.target.result, { type: 'binary' });
+            const wb   = XLSX.read(ev.target.result, { type: 'binary' });
             const ws   = wb.Sheets[wb.SheetNames[0]];
             const data = XLSX.utils.sheet_to_json(ws, { header: 1 });
             let count  = 0;
@@ -620,15 +846,13 @@
       formData.append('managerName',    managerName);
       formData.append('managerContact', managerContact);
       formData.append('channels',       channels.join(', '));
-      formData.append('customMessage',  customMessage);
+      formData.append('customMessage',  combinedMessage);
 
-      if (selectedFile) {
-        const base64 = await toBase64(selectedFile);
-        const count  = await countRows(selectedFile);
-        formData.append('file',          base64);
-        formData.append('fileName',      selectedFile.name);
-        formData.append('customerCount', count);
-      }
+      const base64 = await toBase64(selectedFile);
+      const count  = await countRows(selectedFile);
+      formData.append('file',          base64);
+      formData.append('fileName',      selectedFile.name);
+      formData.append('customerCount', count);
 
       const res  = await fetch(APPS_SCRIPT_URL, { method: 'POST', body: formData });
       const data = await res.json();
@@ -638,6 +862,10 @@
         document.getElementById('requestForm').reset();
         selectedFile = null;
         fileSelected.style.display = 'none';
+        mailSection.style.display = 'none';
+        smsSection.style.display  = 'none';
+        document.querySelectorAll('.template-radio-item').forEach(el => el.classList.remove('selected'));
+        document.getElementById('tmplPreviewBox').style.display = 'none';
       } else {
         showResult('error', '오류: ' + (data.message || '다시 시도해 주세요.'));
       }
@@ -659,9 +887,9 @@
 
   function showResult(type, msg) {
     const el = document.getElementById('result');
-    el.className      = 'result ' + type;
-    el.textContent    = msg;
-    el.style.display  = 'block';
+    el.className     = 'result ' + type;
+    el.textContent   = msg;
+    el.style.display = 'block';
     el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 </script>
