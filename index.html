@@ -612,11 +612,18 @@
         <div class="field" style="margin-bottom:0;">
           <label class="field-label">문자 내용 수정 <span class="req">*</span></label>
           <p class="field-desc">담당자명, 연락처 등 필요한 부분을 직접 수정해 주세요. 수정한 내용이 스프레드시트에 저장됩니다.</p>
-          <textarea id="smsMessage" style="min-height:320px; font-size:15px; line-height:1.75;">경리나라 30일 무료 혜택 안내
 
-[Web발신]
+          <!-- 제목 -->
+          <div style="margin-bottom:8px;">
+            <label style="font-size:14px; font-weight:600; color:#8A93B0; display:block; margin-bottom:5px;">제목</label>
+            <input type="text" id="smsTitle" value="경리나라 30일 무료 혜택 안내" style="border-radius:9px;" />
+          </div>
+
+          <!-- 내용 (편집 가능) -->
+          <div>
+            <label style="font-size:14px; font-weight:600; color:#8A93B0; display:block; margin-bottom:5px;">내용</label>
+            <textarea id="smsMessage" style="min-height:300px; font-size:15px; line-height:1.75;">[Web발신]
 (광고)
-안녕하세요. 경리나라 컨설턴트 OOO입니다.
 
 복잡한 장부 정리와 증빙 관리로 고민하고 계신가요?
 누구나 경리 업무가 간편해지는 경리나라!
@@ -635,8 +642,27 @@
   신청 및 문의는 010-1234-5678로
   연락 부탁드립니다.
 
-전문 컨설턴트 OOO ☎ 010-1234-5678</textarea>
+전문 컨설턴트 OOO ☎ 010-1234-5678
+
+무료거부0808571380,인증번호30168</textarea>
+          </div>
           <div class="inline-error" id="smsError">문자 내용을 입력해 주세요.</div>
+        </div>
+      </div>
+
+      <hr class="divider" />
+
+      <!-- 발송 일정 -->
+      <div class="section-title">발송 일정</div>
+
+      <div class="field-row" style="margin-bottom:0;">
+        <div class="field">
+          <label class="field-label">발송 희망 일자 <span class="req">*</span></label>
+          <input type="date" id="sendDate" />
+        </div>
+        <div class="field">
+          <label class="field-label">발송 희망 시간 <span class="req">*</span></label>
+          <input type="time" id="sendTime" />
         </div>
       </div>
 
@@ -792,13 +818,18 @@
 
     // 문자 유효성
     if (smsChecked) {
-      const smsText = document.getElementById('smsMessage').value.trim();
-      if (!smsText) {
+      const smsTitle = document.getElementById('smsTitle').value.trim();
+      const smsText  = document.getElementById('smsMessage').value.trim();
+      if (!smsTitle || !smsText) {
         document.getElementById('smsError').style.display = 'block';
-        return showResult('error', '문자 내용을 입력해 주세요.');
+        return showResult('error', '문자 제목과 내용을 입력해 주세요.');
       }
     }
 
+    const sendDate = document.getElementById('sendDate').value;
+    const sendTime = document.getElementById('sendTime').value;
+    if (!sendDate) return showResult('error', '발송 희망 일자를 선택해 주세요.');
+    if (!sendTime) return showResult('error', '발송 희망 시간을 선택해 주세요.');
     if (!selectedFile) return showResult('error', '고객 리스트 파일을 업로드해 주세요.');
 
     // customMessage 조합
@@ -809,7 +840,9 @@
       parts.push(`【메일 템플릿】${tpl}` + (extra ? `\n【추가 문구】${extra}` : ''));
     }
     if (smsChecked) {
-      const smsText = document.getElementById('smsMessage').value.trim();
+      const smsTitle = document.getElementById('smsTitle').value.trim();
+      const smsBody  = document.getElementById('smsMessage').value.trim();
+      const smsText  = (smsTitle ? smsTitle + '\n' : '') + smsBody;
       parts.push(`【문자 내용】\n${smsText}`);
     }
     const combinedMessage = parts.join('\n\n');
@@ -847,6 +880,7 @@
       formData.append('managerContact', managerContact);
       formData.append('channels',       channels.join(', '));
       formData.append('customMessage',  combinedMessage);
+      formData.append('sendDateTime',   sendDate + ' ' + sendTime);
 
       const base64 = await toBase64(selectedFile);
       const count  = await countRows(selectedFile);

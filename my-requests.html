@@ -623,7 +623,7 @@
         <div class="card-summary">
           <div class="card-top-row">
             <div class="card-top-left">
-              <span class="card-date">📅 ${row.date}</span>
+              <span class="card-date">📅 신청: ${row.date}</span>
               ${statusBadge}
             </div>
             <div class="card-actions">
@@ -633,6 +633,11 @@
               `}
             </div>
           </div>
+          ${row.sendDateTime ? `
+          <div class="card-row">
+            <span class="card-label">발송 일시</span>
+            <span class="card-value" style="color:#2B5BF0; font-weight:600;">🕐 ${escHtml(row.sendDateTime)}</span>
+          </div>` : ''}
           <div class="card-row">
             <span class="card-label">발송 채널</span>
             <span class="card-value" id="view-channel-${row.id}">${channelBadges}</span>
@@ -666,6 +671,24 @@
           <div class="edit-field">
             <div class="edit-section-label">원하는 문구</div>
             <textarea id="edit-message-${row.id}">${escHtml(row.message)}</textarea>
+          </div>
+
+          <div class="edit-field">
+            <div class="edit-section-label">발송 희망 일시</div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+              <div>
+                <label style="font-size:14px; color:#8A93B0; display:block; margin-bottom:5px;">날짜</label>
+                <input type="date" id="edit-date-${row.id}"
+                  value="${escAttr((row.sendDateTime || '').split(' ')[0])}"
+                  style="width:100%; padding:9px 12px; border:1.5px solid #DDE2F0; border-radius:8px; font-size:15px; outline:none;" />
+              </div>
+              <div>
+                <label style="font-size:14px; color:#8A93B0; display:block; margin-bottom:5px;">시간</label>
+                <input type="time" id="edit-time-${row.id}"
+                  value="${escAttr((row.sendDateTime || '').split(' ')[1] || '')}"
+                  style="width:100%; padding:9px 12px; border:1.5px solid #DDE2F0; border-radius:8px; font-size:15px; outline:none;" />
+              </div>
+            </div>
           </div>
 
           <div class="edit-field">
@@ -761,6 +784,9 @@
         reader.readAsBinaryString(file);
       });
 
+      const editDate = document.getElementById('edit-date-' + id).value;
+      const editTime = document.getElementById('edit-time-' + id).value;
+
       const fd = new FormData();
       fd.append('action',        'update');
       fd.append('id',            id);
@@ -768,6 +794,9 @@
       fd.append('contact',       currentContact);
       fd.append('channels',      channels.join(', '));
       fd.append('customMessage', message);
+      if (editDate && editTime) {
+        fd.append('sendDateTime', editDate + ' ' + editTime);
+      }
 
       if (fileInput.files[0]) {
         const base64 = await toBase64(fileInput.files[0]);
